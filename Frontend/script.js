@@ -57,5 +57,19 @@ async function analyzeSentiment() {
     }
 }
 
+function showResult(data) {
+    const isPositive = data.sentiment === 'positive';
+    const emoji = isPositive ? '😊' : '😞';
+    const label = isPositive ? 'Positive' : 'Negative';
 
+    resultDiv.className = `result ${isPositive ? 'positive' : 'negative'}`;
+    resultDiv.innerHTML = `
+        <div class="label">${emoji} ${label}</div>
+        <div class="confidence">Confidence: ${data.confidence}%</div>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: ${data.confidence}%"></div>
+        </div>
+    `;
+    resultDiv.classList.remove('hidden');
+}
 
