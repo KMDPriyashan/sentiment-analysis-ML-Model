@@ -19,9 +19,9 @@ def clean_text(text):
 
 @app.route('/', methods=['GET'])
 def home():
-    return jonify({
+    return jsonify({
         "status": "success",
-        "Messsage": "Welcome to the Sentiment Analysis API. Sentiment analysis API is running.. !",
+        "Message": "Welcome to the Sentiment Analysis API. Sentiment analysis API is running.. !",
         "endpoint": {
             "POST /predict": "Send {'text': 'Your review text here'} to get the sentiment prediction.",
         }
