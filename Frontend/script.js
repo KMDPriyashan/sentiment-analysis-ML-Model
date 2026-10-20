@@ -12,3 +12,13 @@ reviewInput.addEventListener('keydown', (e) =>{
     }
 });
 
+//clear butten
+clearBtn.addEventListener('click', () => {
+    reviewInput.value = '';
+    resultDiv.classList.add('hidden');
+    errorDiv.classList.add('hidden');
+    reviewInput.focus();
+});
+
+
+
