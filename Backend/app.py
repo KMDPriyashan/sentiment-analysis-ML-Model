@@ -27,3 +27,38 @@ def home():
         }
     })
 
+@app.route('/predict', methods=['POST'])
+def predict():
+    try:
+        data = request.get_json()
+
+        if not data or 'text' not in data:
+            return jsonify({"error": "Invalid input. Please provide a 'text' field in the JSON payload."}), 400
+
+        user_text = data['text'].strip()
+
+        if not user_text:
+            return jsonify({"error": "The 'text' field cannot be empty."}), 400
+
+        cleaned_text = clean_text(user_text)
+        text_vec = vectorizer.transform([cleaned_text])
+        prediction = model.predict(text_vec)[0]
+        probability = model.predict_proba(text_vec)[0]
+
+        result = {
+            "text": user_text,
+            "sentiment": "positive" if prediction == 1 else "negative",
+            "confidence": round(float(max(probability))*100, 2),
+            "probabilities": {
+                "positive": round(float(probability[1])*100, 2),
+                "negative": round(float(probability[0])*100, 2)
+            }
+        }
+
+        return jsonify(result), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=5000)
