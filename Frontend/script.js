@@ -20,5 +20,42 @@ clearBtn.addEventListener('click', () => {
     reviewInput.focus();
 });
 
+async function analyzeSentiment() {
+    const text = reviewInput.value.trim();
+
+    if(!text){
+        showError('please enter a review before analyzing..');
+        return;
+    }
+
+    analyzeBtn.disabled = true;
+    analyzeBtn.innerHTML = '<span class = "loading"></span> Analyzing...';
+    resultDiv.classList.add('hidden');
+    errorDiv.classList.add('hidden');
+
+    try{
+        const response = await fetch(`${API_URL}/predict`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ text: text })
+        });
+
+        if(!response.ok){
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'An error occurred while analyzing sentiment.');
+
+        }
+        const data = await response.json();
+        showResult(data);
+    }catch(err){
+        showError(err.message || 'Failed to analyze sentiment. Please try again later.');
+    }finally{
+        analyzeBtn.disabled = false;
+        analyzeBtn.textContent = 'Analyze Sentiment';
+    }
+}
+
 
 
