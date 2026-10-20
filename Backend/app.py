@@ -16,3 +16,14 @@ def clean_text(text):
     text = re.sub(r'[^a-zA-Z\s]', '', text)
     text = re.sub(r'\s+', ' ', text)
     return text
+
+@app.route('/', methods=['GET'])
+def home():
+    return jonify({
+        "status": "success",
+        "Messsage": "Welcome to the Sentiment Analysis API. Sentiment analysis API is running.. !",
+        "endpoint": {
+            "POST /predict": "Send {'text': 'Your review text here'} to get the sentiment prediction.",
+        }
+    })
+
