@@ -12,6 +12,21 @@
             <h1>💬 Sentiment Analyzer</h1>
             <p class="subtitle">Type any review and AI will tell you the sentiment</p>
         </header>
+
+        <main>
+            <textarea 
+                id="reviewInput" 
+                rows="6" 
+                placeholder="e.g., This movie was absolutely amazing! I loved every minute of it..."
+            ></textarea>
+            <div class="button-group">
+                <button id="analyzeBtn">Analyze Sentiment</button>
+                <button id="clearBtn" class="secondary">Clear</button>
+            </div>
+            <div id="result" class="result hidden"></div>
+            <div id="error" class="error hidden"></div>
+        </main>
+
     </div>
 </body>
 </html>
