@@ -73,3 +73,8 @@ function showResult(data) {
     resultDiv.classList.remove('hidden');
 }
 
+function showError(message) {
+    errorDiv.textContent = message;
+    errorDiv.classList.remove('hidden');
+}
+
