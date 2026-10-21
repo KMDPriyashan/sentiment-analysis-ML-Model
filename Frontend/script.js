@@ -6,6 +6,8 @@ const clearBtn = document.getElementById('clearBtn');
 const resultDiv = document.getElementById('result');
 const errorDiv = document.getElementById('error');
 
+analyzeBtn.addEventListener('click', analyzeSentiment);
+
 reviewInput.addEventListener('keydown', (e) =>{
     if((e.ctrlKey || e.metaKey) && e.key === 'Enter'){
         analyzeSentiment();
@@ -77,4 +79,3 @@ function showError(message) {
     errorDiv.textContent = message;
     errorDiv.classList.remove('hidden');
 }
-
